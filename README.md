@@ -13,6 +13,6 @@ Caso queira rodar o projeto em sua máquina será necessário ter instalado o [*
 npm install -> para instalar as dependências
 node app.js -> para rodar a aplicação
 ```
-**->** não entra nos comandos
+`->` não entra nos comandos
 
 <h4 align="center">Orgulhosamente feito por Allan Kildare</h4>
