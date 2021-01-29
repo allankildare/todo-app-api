@@ -1,16 +1,18 @@
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
-const port = 3002
+const cors = require('cors')
+const app = express()
+const port = 3001
+const db = require('./infra/sqlite-db')
+const sqlite = require('sqlite3')
 
 app.use(bodyParser.json())
+app.use(cors())
 
 const controllerUsuario = require('./controllers/usuario-controller')
-const controllerTarefa = require('./controllers/tarefa-controller')
-
-const db = require('./infra/bd')
-
 controllerUsuario(app, db)
+
+const controllerTarefa = require('./controllers/tarefa-controller')
 controllerTarefa(app, db)
 
 app.listen(port, () => {
