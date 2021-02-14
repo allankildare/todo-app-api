@@ -28,7 +28,7 @@ module.exports = (app, db) => {
         function (error) {
             if (error) throw new Error (`Erro ao inserir ${error}`)
             else {
-                res.send("Usuário adicionado")
+                res.send(`Usuário ${req.body.NOME} adicionado`)
             }
         })
     })
@@ -38,23 +38,16 @@ module.exports = (app, db) => {
             "DELETE FROM USUARIOS WHERE EMAIL = (?)", req.params.email,
             error => {
                 if (error) throw new Error (`Erro ao deletar ${error}`)
-                else res.send("Usuário deletado")
+                else res.send(`Usuário com o e-mail ${req.params.email} deletado`)
             }
         )
     })
 
-    const atualizaRegistro = (email, body) => {
-        for (let user of bd.usuarios) {
-            if (user.email === email) {
-                user.nome = body.nome
-                user.senha = body.senha
-            }
-        }
-    }
-
     app.put('/usuarios/:email', (req, res) => {
-        atualizaRegistro(req.params.email, req.body)
-        res.send(`Usuário ${ req.body.nome } atualizado`)
+        const usuario = new usuarioDAO(db)
+        usuario.atualizaUsuario(req.body, req.params.email)
+            .then(sucess => res.send(sucess))
+            .catch(error => res.send(error))
     })
     
 }

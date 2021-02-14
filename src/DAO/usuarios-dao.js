@@ -34,4 +34,15 @@ module.exports = class UsuariosDAO {
       })
     })
   }
+
+  atualizaUsuario(body, email) {
+    return new Promise((resolve, reject) => {
+      this._db.all("UPDATE USUARIOS SET NOME = (?), EMAIL = (?), SENHA = (?) WHERE EMAIL = (?)",
+      [body.NOME, body.EMAIL, body.SENHA, email],
+      error => {
+        if (error) reject(`Aconteceu algum erro ao buscar o usuario\nErro encontrado: ${error}`)
+        else resolve(`Os dados de ${email} foram atualizados com sucesso`)
+      })
+    })
+  }
 }
